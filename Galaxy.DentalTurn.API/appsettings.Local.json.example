@@ -1,0 +1,6 @@
+{
+  "_comment": "Copy this file to appsettings.Local.json (gitignored) to point the API at Supabase instead of the local docker-compose Postgres. Get the connection string from Supabase Dashboard > Project Settings > Database > Connection string > URI, then convert it to Npgsql key=value format below. Use the 'Session pooler' or direct connection (port 5432) — the 'Transaction pooler' (port 6543) does not support the prepared enum mapping used by this DbContext.",
+  "ConnectionStrings": {
+    "Default": "Host=aws-0-REGION.pooler.supabase.com;Port=5432;Database=postgres;Username=postgres.PROJECT_REF;Password=YOUR_DB_PASSWORD;SSL Mode=Require;Trust Server Certificate=true"
+  }
+}

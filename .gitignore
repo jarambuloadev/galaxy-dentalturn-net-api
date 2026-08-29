@@ -1,0 +1,9 @@
+bin/
+obj/
+.vs/
+*.user
+
+# Local overrides (Supabase creds, etc.) — never commit
+appsettings.Local.json
+appsettings.*.Local.json
+.env

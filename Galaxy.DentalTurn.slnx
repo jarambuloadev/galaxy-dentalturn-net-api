@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="Galaxy.DentalTurn.API/Galaxy.DentalTurn.API.csproj" />
+  <Project Path="Galaxy.DentalTurn.Business/Galaxy.DentalTurn.Business.csproj" Id="ade933ab-f623-4d74-850a-9ed59f65d76a" />
+  <Project Path="Galaxy.DentalTurn.Common/Galaxy.DentalTurn.Common.csproj" Id="d38ef8be-ad5e-4ffd-83ae-9ffed101c889" />
+  <Project Path="Galaxy.DentalTurn.DataAccess/Galaxy.DentalTurn.DataAccess.csproj" Id="46dbe75a-7c46-4213-b3a8-5c8813438e25" />
+  <Project Path="Galaxy.DentalTurn.Repositories/Galaxy.DentalTurn.Repositories.csproj" Id="58ad04e0-96a9-4079-9ec2-e00133f73dff" />
+</Solution>
