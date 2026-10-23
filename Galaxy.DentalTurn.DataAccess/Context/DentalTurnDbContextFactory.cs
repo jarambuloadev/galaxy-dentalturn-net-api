@@ -24,7 +24,7 @@ public class DentalTurnDbContextFactory : IDesignTimeDbContextFactory<DentalTurn
             .Build();
 
         var connectionString = config.GetConnectionString("Default")
-            ?? "Host=localhost;Port=5432;Database=dentalturn;Username=postgres;Password=postgres;EnableLegacyTimestampBehavior=true";
+            ?? "Host=localhost;Port=5440;Database=dentalturn;Username=postgres;Password=postgres;EnableLegacyTimestampBehavior=true";
 
         var optionsBuilder = new DbContextOptionsBuilder<DentalTurnDbContext>();
         optionsBuilder.UseNpgsql(connectionString, o =>
