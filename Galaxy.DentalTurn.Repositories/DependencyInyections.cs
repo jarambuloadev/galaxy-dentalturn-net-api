@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using Galaxy.DentalTurn.Repositories.Interfaces;
 using Galaxy.DentalTurn.Repositories.Implementations;
 
@@ -11,9 +11,8 @@ namespace Galaxy.DentalTurn.Repositories
             services.AddScoped<IServiceRepository, ServiceRepository>();
             services.AddScoped<IPatientRepository, PatientRepository>();
             services.AddScoped<IAdminUserRepository, AdminUserRepository>();
-            // Add other repository registrations here
+            services.AddScoped<IBusinessHoursRepository, BusinessHoursRepository>();
             return services;
         }
     }
-       
 }
