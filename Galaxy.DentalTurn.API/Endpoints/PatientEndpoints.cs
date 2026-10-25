@@ -1,6 +1,7 @@
-﻿using Galaxy.DentalTurn.Business.Interfaces;
+using Galaxy.DentalTurn.Business.DTO.Request;
 using Galaxy.DentalTurn.Business.DTO.Request.Patient;
 using Galaxy.DentalTurn.Business.DTO.Response;
+using Galaxy.DentalTurn.Business.Interfaces;
 using Microsoft.AspNetCore.Http;
 
 namespace Galaxy.DentalTurn.API.Endpoints
@@ -50,9 +51,9 @@ namespace Galaxy.DentalTurn.API.Endpoints
             })
             .WithName("DeletePatient");
 
-            group.MapGet("/", async (int pageNumber, int pageSize, IPatientService patientService) =>
+            group.MapGet("/", async ([AsParameters] PagedRequest request, IPatientService patientService) =>
             {
-                var patients = await patientService.ListAsync(pageNumber, pageSize);
+                var patients = await patientService.ListAsync(request);
                 if (patients == null)
                 {
                     return Results.NotFound();

@@ -1,3 +1,4 @@
+using Galaxy.DentalTurn.Business.DTO.Request;
 using Galaxy.DentalTurn.Business.DTO.Request.Patient;
 using Galaxy.DentalTurn.Business.DTO.Response;
 using Galaxy.DentalTurn.Business.Interfaces;
@@ -19,9 +20,18 @@ namespace Galaxy.DentalTurn.Business.Implementations
 
         public async Task<Result> CreateAsync(UpdatePatientRequest request)
         {
-            var patient = request.Adapt<Patient>();
-            var result = await _patientRepository.CreateAsync(patient);
-            return Result.Success("Patient created successfully.");
+            var now = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Unspecified);
+            var patient = new Patient
+            {
+                Name = request.Name.Trim(),
+                Email = request.Email.Trim(),
+                Phone = request.Phone.Trim(),
+                Status = true,
+                CreatedAt = now,
+                UpdatedAt = now
+            };
+            await _patientRepository.CreateAsync(patient);
+            return Result.Success("Paciente creado correctamente.");
         }
 
         public async Task<Result<GetPatientResponse>> GetByIdAsync(int id)
@@ -29,9 +39,19 @@ namespace Galaxy.DentalTurn.Business.Implementations
             var result = await _patientRepository.GetByIdAsync(id);
             if (result is null)
             {
-                return Result.Failure<GetPatientResponse>($"Patient with id {id} not found.");
+                return Result.Failure<GetPatientResponse>($"Paciente con id {id} no encontrado.");
             }
-            return Result.Success(result.Adapt<GetPatientResponse>());
+            var response = new GetPatientResponse
+            {
+                Id = result.Id,
+                Name = result.Name,
+                Email = result.Email,
+                Phone = result.Phone,
+                Active = result.Status,
+                CreatedAt = result.CreatedAt,
+                CreatedBy = result.CreatedBy
+            };
+            return Result.Success(response);
         }
 
         public async Task<Result> UpdateAsync(int id, UpdatePatientRequest request)
@@ -39,11 +59,14 @@ namespace Galaxy.DentalTurn.Business.Implementations
             var result = await _patientRepository.GetByIdAsync(id);
             if (result is null)
             {
-                return Result.Failure<GetPatientResponse>($"Patient with id {id} not found.");
+                return Result.Failure<GetPatientResponse>($"Paciente con id {id} no encontrado.");
             }
-            var patient = request.Adapt(result);
+            result.Name = request.Name.Trim();
+            result.Email = request.Email.Trim();
+            result.Phone = request.Phone.Trim();
+            result.UpdatedAt = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Unspecified);
             await _patientRepository.UpdateAsync();
-            return Result.Success("Patient updated successfully.");
+            return Result.Success("Paciente actualizado correctamente.");
         }
 
         public async Task<Result> DeleteAsync(int id)
@@ -51,25 +74,30 @@ namespace Galaxy.DentalTurn.Business.Implementations
             var result = await _patientRepository.GetByIdAsync(id);
             if (result is null)
             {
-                return Result.Failure<GetPatientResponse>($"Patient with id {id} not found.");
+                return Result.Failure<GetPatientResponse>($"Paciente con id {id} no encontrado.");
             }
             await _patientRepository.DeleteAsync(id);
-            return Result.Success("Patient deleted successfully.");
+            return Result.Success("Paciente eliminado correctamente.");
         }
 
-        public async Task<Result<List<ListPatientsResponse>>> ListAsync(int pageNumnber = 1, int pageSize = 10)
+        public async Task<Result<List<ListPatientsResponse>>> ListAsync(PagedRequest request)
         {
             var result = await _patientRepository.ListAsync(
-                predicate: p => p.Status,
+                predicate: p => p.Status &&
+                    (string.IsNullOrEmpty(request.Search) ||
+                     p.Name.Contains(request.Search) ||
+                     p.Email.Contains(request.Search) ||
+                     p.Phone.Contains(request.Search)),
                 selector: p => new ListPatientsResponse
                 {
+                    Id = p.Id,
                     Name = p.Name,
                     Email = p.Email,
                     Phone = p.Phone,
                     Active = p.Status
                 },
-                pageNumber: pageNumnber,
-                pageSize: pageSize);
+                pageNumber: request.PageNumber,
+                pageSize: request.PageSize);
 
             return Result.Success(result.Result.ToList());
         }
