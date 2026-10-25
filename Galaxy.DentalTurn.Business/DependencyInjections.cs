@@ -9,6 +9,7 @@ namespace Galaxy.DentalTurn.Business
         public static IServiceCollection AddBusiness(this IServiceCollection services)
         {
             services.AddScoped<IServiceService, ServiceService>();
+            services.AddScoped<IPractitionerService, PractitionerService>();
             services.AddScoped<IPatientService, PatientService>();
             services.AddScoped<IAdminUserService, AdminUserService>();
             services.AddScoped<ITokenService, TokenService>();
