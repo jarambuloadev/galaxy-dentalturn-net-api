@@ -25,9 +25,10 @@ builder.Services.AddControllers();
 var connectionString = builder.Configuration.GetConnectionString("Default")
     ?? throw new InvalidOperationException("Missing ConnectionStrings:Default. Set it in appsettings.Development.json (local docker) or via env var for Supabase.");
 
+var nullNameTranslator = new NpgsqlNullNameTranslator();
 builder.Services.AddDbContext<DentalTurnDbContext>(options =>
     options.UseNpgsql(connectionString, o =>
-        o.MapEnum<AppointmentStatus>("AppointmentStatus", nameTranslator: new NpgsqlNullNameTranslator())));
+        o.MapEnum<AppointmentStatus>("AppointmentStatus", nameTranslator: nullNameTranslator)));
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
