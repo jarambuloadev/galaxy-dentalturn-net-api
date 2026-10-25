@@ -9,12 +9,12 @@ namespace Galaxy.DentalTurn.Repositories.Implementations
     {
         public async Task<bool> ExistsByNameAsync(string name)
         {
-            return await _context.Set<AdminUser>().AnyAsync(u => u.Name == name);
+            return await _context.Set<AdminUser>().AnyAsync(u => u.Status && u.Name == name);
         }
 
         public async Task<bool> ExistsByEmailAsync(string email)
         {
-            return await _context.Set<AdminUser>().AnyAsync(u => u.Email == email);
+            return await _context.Set<AdminUser>().AnyAsync(u => u.Status && u.Email == email);
         }   
     }
 }
