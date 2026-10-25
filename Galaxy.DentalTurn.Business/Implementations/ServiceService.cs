@@ -1,11 +1,9 @@
-﻿
 using Galaxy.DentalTurn.Business.DTO.Request;
 using Galaxy.DentalTurn.Business.DTO.Request.Service;
 using Galaxy.DentalTurn.Business.DTO.Response;
 using Galaxy.DentalTurn.Business.Interfaces;
 using Galaxy.DentalTurn.Common.Helpers;
 using Galaxy.DentalTurn.DataAccess.Entities;
-using Galaxy.DentalTurn.Repositories.Implementations;
 using Galaxy.DentalTurn.Repositories.Interfaces;
 using Mapster;
 
@@ -65,10 +63,10 @@ namespace Galaxy.DentalTurn.Business.Implementations
         {
             var result = await _serviceRepository.ListAsync(
                 predicate: p => p.Status &&
-                (string.IsNullOrEmpty(request.Search) || p.Name.Contains(request.Search) || p.Description.Contains(request.Search))
-                ,
+                (string.IsNullOrEmpty(request.Search) || p.Name.Contains(request.Search) || (p.Description != null && p.Description.Contains(request.Search))),
                 selector: p => new ListServiciosResponse
                 {
+                    Id = p.Id,
                     Name = p.Name,
                     Description = p.Description,
                     DurationMin = p.DurationMin,
