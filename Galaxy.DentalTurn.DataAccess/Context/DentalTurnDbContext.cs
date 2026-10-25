@@ -136,6 +136,7 @@ public class DentalTurnDbContext : DbContext
             e.Property(x => x.Email).HasColumnName("email").IsRequired();
             e.Property(x => x.PasswordHash).HasColumnName("passwordHash").IsRequired();
             e.Property(x => x.Name).HasColumnName("name");
+            e.Property(x => x.Rol).HasColumnName("rol").HasDefaultValue("admin").IsRequired();
             e.Property(x => x.CreatedAt).HasColumnName("createdAt").HasColumnType("timestamp(3) without time zone").HasDefaultValueSql("CURRENT_TIMESTAMP");
             e.Property(x => x.UpdatedAt).HasColumnName("updatedAt").HasColumnType("timestamp(3) without time zone");
 

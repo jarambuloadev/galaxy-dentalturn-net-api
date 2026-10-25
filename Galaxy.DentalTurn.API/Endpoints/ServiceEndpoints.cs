@@ -1,5 +1,6 @@
 ﻿using Galaxy.DentalTurn.Business.Interfaces;
 using Galaxy.DentalTurn.Business.DTO.Request.Service;
+using Galaxy.DentalTurn.Business.DTO.Request;
 using Galaxy.DentalTurn.Business.DTO.Response;
 
 namespace Galaxy.DentalTurn.API.Endpoints
@@ -44,9 +45,9 @@ namespace Galaxy.DentalTurn.API.Endpoints
             .Produces(StatusCodes.Status400BadRequest)
             .Produces(StatusCodes.Status404NotFound);
 
-            group.MapGet("/", async (int pageNumber, int pageSize, IServiceService iserviceService) =>
+            group.MapGet("/", async ( [AsParameters] PagedRequest request, IServiceService iserviceService) =>
             {
-                var service = await iserviceService.ListAsync(pageNumber, pageSize);
+                var service = await iserviceService.ListAsync(request);
                 if (service == null)
                 {
                     return Results.NotFound();

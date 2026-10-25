@@ -58,6 +58,13 @@ namespace Galaxy.DentalTurn.DataAccess.Migrations
                         .HasColumnType("text")
                         .HasColumnName("passwordHash");
 
+                    b.Property<string>("Rol")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("text")
+                        .HasDefaultValue("admin")
+                        .HasColumnName("rol");
+
                     b.Property<bool>("Status")
                         .HasColumnType("boolean");
 

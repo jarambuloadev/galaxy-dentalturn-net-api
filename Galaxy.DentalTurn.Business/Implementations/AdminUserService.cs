@@ -1,4 +1,4 @@
-﻿using Galaxy.DentalTurn.Business.Interfaces;
+using Galaxy.DentalTurn.Business.Interfaces;
 using Galaxy.DentalTurn.Business.DTO.Request.AdminUser;
 using Galaxy.DentalTurn.Repositories.Interfaces;
 using Galaxy.DentalTurn.Common.Helpers;
@@ -38,7 +38,8 @@ namespace Galaxy.DentalTurn.Business.Implementations
             {
                 Email = request.Email,
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword( request.PasswordHash),
-                Name = request.Name
+                Name = request.Name,
+                Rol = string.IsNullOrWhiteSpace(request.Rol) ? "admin" : request.Rol
             };
 
             await _adminUserRepository.CreateAsync(user);

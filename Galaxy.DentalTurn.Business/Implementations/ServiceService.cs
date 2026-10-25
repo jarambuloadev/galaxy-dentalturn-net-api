@@ -1,4 +1,5 @@
 ﻿
+using Galaxy.DentalTurn.Business.DTO.Request;
 using Galaxy.DentalTurn.Business.DTO.Request.Service;
 using Galaxy.DentalTurn.Business.DTO.Response;
 using Galaxy.DentalTurn.Business.Interfaces;
@@ -60,10 +61,12 @@ namespace Galaxy.DentalTurn.Business.Implementations
             return Result.Success("Service deleted successfully.");
         }
 
-        public async Task<Result<List<ListServiciosResponse>>> ListAsync(int pageNumnber = 1, int pageSize = 10)
+        public async Task<Result<List<ListServiciosResponse>>> ListAsync(PagedRequest request)
         {
             var result = await _serviceRepository.ListAsync(
-                predicate: p => p.Status,
+                predicate: p => p.Status &&
+                (string.IsNullOrEmpty(request.Search) || p.Name.Contains(request.Search) || p.Description.Contains(request.Search))
+                ,
                 selector: p => new ListServiciosResponse
                 {
                     Name = p.Name,
@@ -71,8 +74,8 @@ namespace Galaxy.DentalTurn.Business.Implementations
                     DurationMin = p.DurationMin,
                     Active = p.Status
                 },
-                pageNumber: pageNumnber,
-                pageSize: pageSize);
+                pageNumber: request.PageNumber,
+                pageSize: request.PageSize);
             return Result.Success(result.Result.ToList());
         }
     }

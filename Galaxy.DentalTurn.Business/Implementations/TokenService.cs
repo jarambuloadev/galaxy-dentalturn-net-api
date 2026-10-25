@@ -1,4 +1,4 @@
-﻿using Galaxy.DentalTurn.Business.DTO.Response.Auth;
+using Galaxy.DentalTurn.Business.DTO.Response.Auth;
 using Galaxy.DentalTurn.Common.Helpers;
 using Galaxy.DentalTurn.DataAccess.Entities;
 using Microsoft.Extensions.Configuration;
@@ -29,8 +29,8 @@ namespace Galaxy.DentalTurn.Business.Implementations
 
             var claims = new[]
             {
-                new Claim(ClaimTypes.Name, request.Name),
-                //new Claim(ClaimTypes.Role, request.Rol),
+                new Claim(ClaimTypes.Name, request.Name ?? request.Email),
+                new Claim(ClaimTypes.Role, request.Rol),
                 new Claim(ClaimTypes.NameIdentifier, request.Id.ToString()),
                 new Claim(JwtRegisteredClaimNames.Sub, request.Id.ToString())
             };

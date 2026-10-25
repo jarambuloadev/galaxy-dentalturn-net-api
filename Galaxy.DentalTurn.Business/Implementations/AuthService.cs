@@ -1,4 +1,4 @@
-﻿using Galaxy.DentalTurn.Business.Interfaces;
+using Galaxy.DentalTurn.Business.Interfaces;
 using Galaxy.DentalTurn.Common.Helpers;
 using Galaxy.DentalTurn.Business.DTO.Request.Auth;
 using Galaxy.DentalTurn.Business.DTO.Response.Auth;
@@ -37,7 +37,7 @@ namespace Galaxy.DentalTurn.Business.Implementations
             {
                 Token = tokenDto.Token,
                 ExpirationDate = tokenDto.ExpirationDate,
-                // Role = user.Rol
+                Role = user.Rol
             };
 
             return Result.Success(response);

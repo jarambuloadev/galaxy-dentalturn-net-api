@@ -1,4 +1,5 @@
-﻿using Galaxy.DentalTurn.Business.DTO.Request.Service;
+﻿using Galaxy.DentalTurn.Business.DTO.Request;
+using Galaxy.DentalTurn.Business.DTO.Request.Service;
 using Galaxy.DentalTurn.Business.DTO.Response;
 using Galaxy.DentalTurn.Common.Helpers;
 using System;
@@ -14,7 +15,7 @@ namespace Galaxy.DentalTurn.Business.Interfaces
         Task<Result> UpdateAsync(int id, UpdateServiceRequest request);
 
         Task<Result> DeleteAsync(int id);
-        Task<Result<List<ListServiciosResponse>>> ListAsync(int pageNumnber = 1, int pageSize = 10);
+        Task<Result<List<ListServiciosResponse>>> ListAsync(PagedRequest request);
 
     }
 }
