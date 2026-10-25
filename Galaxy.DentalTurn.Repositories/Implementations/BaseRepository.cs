@@ -1,4 +1,3 @@
-﻿
 using Galaxy.DentalTurn.DataAccess;
 using Galaxy.DentalTurn.DataAccess.Context;
 using Galaxy.DentalTurn.DataAccess.Entities;
@@ -53,7 +52,9 @@ namespace Galaxy.DentalTurn.Repositories.Implementations
         {
             var result = await _context.Set<TEntity>()
                 .Where(predicate)
+                .OrderBy(p => p.Id)
                 .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
                 .Select(selector)
                 .ToListAsync();
 
