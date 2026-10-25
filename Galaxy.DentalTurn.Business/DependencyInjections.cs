@@ -10,6 +10,7 @@ namespace Galaxy.DentalTurn.Business
         {
             services.AddScoped<IServiceService, ServiceService>();
             services.AddScoped<IPractitionerService, PractitionerService>();
+            services.AddScoped<IAppointmentService, AppointmentService>();
             services.AddScoped<IPatientService, PatientService>();
             services.AddScoped<IAdminUserService, AdminUserService>();
             services.AddScoped<ITokenService, TokenService>();

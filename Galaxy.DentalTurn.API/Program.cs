@@ -68,6 +68,7 @@ app.MapGroup("/api/patients").MapPatientEndpoints().WithTags("patients");
 app.MapGroup("/api/adminusers").MapAdminUserEndpoints().WithTags("adminusers");
 app.MapGroup("/api/business-hours").MapBusinessHoursEndpoints().WithTags("business-hours");
 app.MapGroup("/api/practitioners").MapPractitionerEndpoints().WithTags("practitioners");
+app.MapGroup("/api/appointments").MapAppointmentEndpoints().WithTags("appointments");
 
 var servicesGroup = app.MapGroup("/api/services")
     .MapServiceEndpoints()

@@ -10,6 +10,7 @@ namespace Galaxy.DentalTurn.Repositories
         {
             services.AddScoped<IServiceRepository, ServiceRepository>();
             services.AddScoped<IPractitionerRepository, PractitionerRepository>();
+            services.AddScoped<IAppointmentRepository, AppointmentRepository>();
             services.AddScoped<IPatientRepository, PatientRepository>();
             services.AddScoped<IAdminUserRepository, AdminUserRepository>();
             services.AddScoped<IBusinessHoursRepository, BusinessHoursRepository>();
